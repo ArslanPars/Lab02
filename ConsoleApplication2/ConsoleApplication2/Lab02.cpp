@@ -2,29 +2,22 @@
 //
 
 #include "stdafx.h"
+#include <math.h>
 
-#define Q(x, n) ((((-2.) * (n) * ((x) * (x))) - ((x) * (x))) / (2. * (n) + 3.))
-#define FUNC(x) ((atan (x) - (x)) / ((x) * (x)))
-#define COND(x) (x) < (-1) || (x) > 1 ? printf("error\n"): NULL
+
+#define FUNC(x) ((atan (x)) / ((x) * (x)))
+#define Q(x, n) ((((-2.0) * (n) * ((x) * (x))) - ((x) * (x))) / (2.0 * (n) + 3.0))
+
 
 int main()
 {
-	double a = 1.0, x = 0.001, S = 0.0;
-	COND(x);
-	for (int i = 0; i <= 15; ++i) {
+	double a = 1.0, x = 0.1, S = 0.0;
+	unsigned int n, N = 15;
+	for (int n = 0; n <= N; ++n) {
 		S += a;
-		a *= (double)Q(x, i);
-		}
-		double y = FUNC(x), tol = fabs(S - y);
-		printf("Sum:\t\t%.7f\nControl:\t%.7f\nTolerance:\t%.7f\n", S, y, tol);
-		getchar();
+		a *= Q(x, n);
+	}
+	double y = FUNC(x), tol = fabs(S - y);
+	printf("Sum:\t\t%.7f\nControl:\t%.7f\nTolerance:\t%.7f\n", S, y, tol);	
     return 0;
 }
-
-
-
-
-
-
-//Q(x, n) (((-2.) * (n) * (x) * (x)-(x) * (x)) / (2. * (n)+3.))
-//Q(x, n) ((((-2.) * (n) * ((x) * (x))) - ((x) * (x))) / (2. * (n) + 3.))
